@@ -6,7 +6,7 @@ frontend:
   domain: quybpdev.apps.drgdevlab.com
   image:
     repository: ghcr.io/devsecopslonghn/fund-management-frontend
-    tag: 3ebc68d79cee7fa8331ce21f092d8ad56b664949
+    tag: 9395a0e2333ba10ad47f43ddece6e5a25c2b7ec9
     pullPolicy: IfNotPresent
   replicas: 1
   resources:

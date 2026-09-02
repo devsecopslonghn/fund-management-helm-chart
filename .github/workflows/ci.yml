@@ -1,0 +1,15 @@
+name: Helm chart CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+
+jobs:
+  validate:
+    uses: devsecopslonghn/.github/.github/workflows/helm-validate.yml@master
+    with:
+      chart_path: .
+      release_name: fund-management
+      namespace: fund-management
+      minimum_kind_count: 5

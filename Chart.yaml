@@ -1,0 +1,6 @@
+apiVersion: v2
+name: fund-management
+description: Umbrella Helm chart for the Fund Management frontend and backend
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

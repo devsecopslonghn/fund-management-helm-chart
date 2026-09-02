@@ -1,0 +1,64 @@
+{{- if .Values.frontend.image.tag }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fund-management-frontend
+  labels:
+    {{- include "fund-management-frontend.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.frontend.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: fund-management
+      app.kubernetes.io/component: frontend
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: fund-management
+        app.kubernetes.io/component: frontend
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecret }}
+      securityContext:
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+        - name: frontend
+          image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+          ports:
+            - {name: http, containerPort: 8080}
+          readinessProbe:
+            httpGet: {path: /healthz, port: http}
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: {path: /healthz, port: http}
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          resources: {{- toYaml .Values.frontend.resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {drop: [ALL]}
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 101
+            runAsGroup: 101
+          volumeMounts:
+            - {name: nginx-cache, mountPath: /var/cache/nginx}
+            - {name: tmp, mountPath: /tmp}
+      volumes:
+        - {name: nginx-cache, emptyDir: {}}
+        - {name: tmp, emptyDir: {}}
+---
+{{- end }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: fund-management-frontend
+  labels:
+    {{- include "fund-management-frontend.labels" . | nindent 4 }}
+spec:
+  selector:
+    app.kubernetes.io/name: fund-management
+    app.kubernetes.io/component: frontend
+  ports:
+    - {name: http, port: 8080, targetPort: http}

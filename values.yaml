@@ -1,0 +1,49 @@
+# The application repositories publish immutable GHCR images and update the
+# corresponding image tags here after successful CI.
+imagePullSecret: ghcr-pull
+
+frontend:
+  domain: quybpdev.apps.drgdevlab.com
+  image:
+    repository: ghcr.io/devsecopslonghn/fund-management-frontend
+    tag: 3ebc68d79cee7fa8331ce21f092d8ad56b664949
+    pullPolicy: IfNotPresent
+  replicas: 1
+  resources:
+    requests: {cpu: 50m, memory: 64Mi}
+    limits: {cpu: 250m, memory: 256Mi}
+
+backend:
+  image:
+    repository: ghcr.io/devsecopslonghn/fund-management-backend
+    tag: ed55f94a035155960d3416977070e635a495b42c
+    pullPolicy: IfNotPresent
+  observability:
+    enabled: true
+    endpoint: http://collector.observability-dev.svc.cluster.local:4317
+    environment: dev
+    traceSampling: "0.10"
+  runtimeSecret: fund-management-runtime
+  adminSecret: fund-management-admin
+  gmailPubsub:
+    enabled: true
+    topicName: projects/fund-management-prod/topics/fund-management-gmail-events
+    secretName: fund-management-gmail-pubsub
+  replicas: 2
+  scheduling:
+    nodeSelector: {}
+    podAntiAffinity: true
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+  backup:
+    enabled: false
+    schedule: "30 1 * * *"
+    timeZone: Asia/Ho_Chi_Minh
+    retentionDays: 30
+    image: mongo:8.0
+    storageClassName: longhorn-workers
+    storageSize: 10Gi
+  resources:
+    requests: {cpu: 100m, memory: 256Mi}
+    limits: {cpu: 500m, memory: 768Mi}

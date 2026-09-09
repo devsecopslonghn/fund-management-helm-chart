@@ -16,7 +16,7 @@ frontend:
 backend:
   image:
     repository: ghcr.io/devsecopslonghn/fund-management-backend
-    tag: a36be13daad3996eecbfca8a029f3eec074fd8c7
+    tag: 76adfc0c9503b9ccb28bfb9bb12e19356aa66667
     pullPolicy: IfNotPresent
   observability:
     enabled: true

@@ -17,6 +17,8 @@ spec:
         app.kubernetes.io/name: fund-management
         app.kubernetes.io/component: backend
     spec:
+      serviceAccountName: fund-management-backend
+      automountServiceAccountToken: false
       {{- with .Values.backend.scheduling.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

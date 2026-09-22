@@ -17,6 +17,8 @@ spec:
         app.kubernetes.io/name: fund-management
         app.kubernetes.io/component: frontend
     spec:
+      serviceAccountName: fund-management-frontend
+      automountServiceAccountToken: false
       imagePullSecrets:
         - name: {{ .Values.imagePullSecret }}
       securityContext:

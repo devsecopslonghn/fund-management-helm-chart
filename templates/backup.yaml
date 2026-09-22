@@ -33,6 +33,8 @@ spec:
             app.kubernetes.io/name: fund-management
             app.kubernetes.io/component: backup
         spec:
+          serviceAccountName: fund-management-backup
+          automountServiceAccountToken: false
           restartPolicy: OnFailure
           imagePullSecrets:
             - name: {{ .Values.imagePullSecret }}

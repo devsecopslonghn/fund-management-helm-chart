@@ -65,4 +65,27 @@ spec:
     app.kubernetes.io/component: mcp
   ports:
     - {name: http, port: 8080, targetPort: http}
+{{- if .Values.mcp.ingress.enabled }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fund-management-mcp
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: {{ .Values.mcp.ingress.domain }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: fund-management-mcp
+                port: {number: 8080}
+  tls:
+    - hosts: [{{ .Values.mcp.ingress.domain }}]
+{{- end }}
 {{- end }}

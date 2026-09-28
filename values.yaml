@@ -59,10 +59,10 @@ mcp:
   adminSecret: fund-management-admin
   runtimeSecret: fund-management-mcp
   auth:
-    mode: static
+    mode: oauth
     publicBaseUrl: https://mcp-quybpdev.apps.drgdevlab.com
     oauth:
-      issuer: ""
+      issuer: https://auth.apps.drgdevlab.com/realms/kubernetes
       audience: https://mcp-quybpdev.apps.drgdevlab.com
       metadataUrl: ""
   ingress:

@@ -60,7 +60,7 @@ mcp:
   runtimeSecret: fund-management-mcp
   ingress:
     enabled: true
-    domain: mcp.quybpdev.apps.drgdevlab.com
+    domain: mcp-quybpdev.apps.drgdevlab.com
   resources:
     requests: {cpu: 50m, memory: 128Mi}
     limits: {cpu: 250m, memory: 256Mi}

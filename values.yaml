@@ -47,3 +47,17 @@ backend:
   resources:
     requests: {cpu: 100m, memory: 256Mi}
     limits: {cpu: 500m, memory: 768Mi}
+
+mcp:
+  enabled: false
+  image:
+    repository: ghcr.io/devsecopslonghn/fund-management-mcp
+    tag: ""
+    pullPolicy: IfNotPresent
+  replicas: 1
+  backendBaseUrl: http://fund-management-backend.fund-management.svc.cluster.local:8080/api/v1
+  adminSecret: fund-management-admin
+  runtimeSecret: fund-management-mcp
+  resources:
+    requests: {cpu: 50m, memory: 128Mi}
+    limits: {cpu: 250m, memory: 256Mi}

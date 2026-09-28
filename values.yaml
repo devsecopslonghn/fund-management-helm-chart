@@ -10,8 +10,8 @@ frontend:
     pullPolicy: IfNotPresent
   replicas: 1
   resources:
-    requests: {cpu: 50m, memory: 64Mi}
-    limits: {cpu: 250m, memory: 256Mi}
+    requests: {cpu: 50m, memory: 64Mi, ephemeral-storage: 32Mi}
+    limits: {cpu: 250m, memory: 256Mi, ephemeral-storage: 128Mi}
 
 backend:
   image:
@@ -45,8 +45,8 @@ backend:
     storageClassName: longhorn-workers
     storageSize: 10Gi
   resources:
-    requests: {cpu: 100m, memory: 256Mi}
-    limits: {cpu: 500m, memory: 768Mi}
+    requests: {cpu: 100m, memory: 256Mi, ephemeral-storage: 64Mi}
+    limits: {cpu: 500m, memory: 768Mi, ephemeral-storage: 256Mi}
 
 mcp:
   enabled: true
@@ -69,5 +69,5 @@ mcp:
     enabled: true
     domain: mcp-quybpdev.apps.drgdevlab.com
   resources:
-    requests: {cpu: 50m, memory: 128Mi}
-    limits: {cpu: 250m, memory: 256Mi}
+    requests: {cpu: 50m, memory: 128Mi, ephemeral-storage: 32Mi}
+    limits: {cpu: 250m, memory: 256Mi, ephemeral-storage: 128Mi}

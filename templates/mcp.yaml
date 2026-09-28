@@ -33,7 +33,16 @@ spec:
             - secretRef: {name: {{ .Values.mcp.runtimeSecret }}}
           env:
             - {name: MCP_TRANSPORT, value: http}
+            - {name: MCP_AUTH_MODE, value: {{ .Values.mcp.auth.mode | quote }}}
+            - {name: MCP_PUBLIC_BASE_URL, value: {{ .Values.mcp.auth.publicBaseUrl | quote }}}
             - {name: FUND_API_BASE_URL, value: {{ .Values.mcp.backendBaseUrl | quote }}}
+{{- if eq .Values.mcp.auth.mode "oauth" }}
+            - {name: OAUTH_ISSUER, value: {{ required "mcp.auth.oauth.issuer is required when MCP auth mode is oauth" .Values.mcp.auth.oauth.issuer | quote }}}
+            - {name: OAUTH_AUDIENCE, value: {{ required "mcp.auth.oauth.audience is required when MCP auth mode is oauth" .Values.mcp.auth.oauth.audience | quote }}}
+{{- if .Values.mcp.auth.oauth.metadataUrl }}
+            - {name: OAUTH_METADATA_URL, value: {{ .Values.mcp.auth.oauth.metadataUrl | quote }}}
+{{- end }}
+{{- end }}
           ports:
             - {name: http, containerPort: 8080}
           readinessProbe:

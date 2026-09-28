@@ -58,6 +58,13 @@ mcp:
   backendBaseUrl: http://fund-management-backend.fund-management.svc.cluster.local:8080/api/v1
   adminSecret: fund-management-admin
   runtimeSecret: fund-management-mcp
+  auth:
+    mode: static
+    publicBaseUrl: https://mcp-quybpdev.apps.drgdevlab.com
+    oauth:
+      issuer: ""
+      audience: https://mcp-quybpdev.apps.drgdevlab.com
+      metadataUrl: ""
   ingress:
     enabled: true
     domain: mcp-quybpdev.apps.drgdevlab.com

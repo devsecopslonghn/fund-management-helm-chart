@@ -52,7 +52,7 @@ mcp:
   enabled: true
   image:
     repository: ghcr.io/devsecopslonghn/fund-management-mcp
-    tag: 59f3d51f5fddbc768df33288ff73d0a5a96e5562@sha256:3272271d6a6c7eee7def7c7c4c10500b7158f2de21aa3f7027d112ba2bca06bb
+    tag: 95ce96daac68fc4279cd6dcfffc8b5d508ec59c9@sha256:70400603bd3442da4eb624dc79b37a7e60ac08fd07e285c958d552be20ec218c
     pullPolicy: IfNotPresent
   replicas: 1
   backendBaseUrl: http://fund-management-backend.fund-management.svc.cluster.local:8080/api/v1
